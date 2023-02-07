@@ -9,14 +9,20 @@
 #include <string>
 using namespace std;
 
-template <typename E>
 
-class cake{
-private:
-   
+
+class CakeStore
+{
+public:
     string name;
     double weight;
     string icing_color;
+};
+
+class cake : public CakeStore
+{
+public:
+   
     string flavor;
     string occassion_phrase;
     
@@ -29,7 +35,6 @@ class SCake { // singly linked list node
 private:
 E elem; // linked list element value
 SCake<E>* next; // next item in the list
-friend class CakeLinkedList<E>; // provide SLinkedList access
 };
 
 template <typename E>
