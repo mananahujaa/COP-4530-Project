@@ -49,7 +49,8 @@ class LLCart
             cout << "Cake Added" << endl;
         }
 
-        void removeCake(int uid)
+        template<typename id>
+        void removeCake(id uid)
         {
             int size = GetCartSize();
             if(head == NULL || size == 0)
@@ -58,7 +59,7 @@ class LLCart
                 return;
             }
 
-            if(size == 1)
+            if(size == 1 || head->data == uid)
             {
                 head = head->next;
                 return;
@@ -88,6 +89,11 @@ class LLCart
         void DisplayCart()
         {
             CNode<T>* temp = head;
+            if(temp == NULL)
+            {
+                cout << "Cart is Empty" << endl;
+            }
+            cout << "\n";
             while (temp != NULL)
             {
                 cout<< temp->data << " -> ";
@@ -122,21 +128,19 @@ class LLCart
 
 int main()
 {
-    LLCart<int> list;
-    list.addCake(5);
-    list.addCake(56);
-    list.addCake(36);
-    list.addCake(12);
-    list.addCake(569);
-    list.addCake(536);
-    list.addCake(53346);
-    list.addCake(5236);
-    list.addCake(5346);
-    list.addCake(54256);
-    list.addCake(66);
+    LLCart<string> list;
+    list.addCake("Vanilla");
+    // list.addCake(56);
+    // list.addCake(36);
+    // list.addCake(12);
+    // list.addCake(569);
+    // list.addCake(536);
+    // list.addCake(53346);
+    // list.addCake(5236);
+    // list.addCake(5346);
+    // list.addCake(54256);
     list.DisplayCart();
-    list.removeCake(569);
+    list.removeCake("Vanilla");
     list.DisplayCart();
-    list.removeCake(5);
-    list.DisplayCart();
+    // list.DisplayCart();
 }
