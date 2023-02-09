@@ -10,11 +10,12 @@ private:
     int zipcode;
     float total;
     bool orderStatus;
+    
 
 public:
     CakeStore();
     CakeStore(string name, string DOB, int zip);
-    ~CakeStore();
+    // ~CakeStore();
 };
 
 #endif

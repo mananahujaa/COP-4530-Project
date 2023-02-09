@@ -1,4 +1,10 @@
+
 #include "iostream"
+#include "fstream"
+#include "CakeStore.h"
+#include "bits/stdc++.h"
+#include "stdlib.h"
+
 using namespace std;
 
 template<typename T>
@@ -6,6 +12,7 @@ class CNode
 {
     private:
         T data;
+        double price;
         CNode<T>* next;
         template<typename U> friend class LLCart;
     public:
@@ -20,17 +27,21 @@ class LLCart
 {
     private:
         CNode<T>* head;
-        int cartSize = 0;
+        int cartSize;
+        float total;
     public:
         LLCart()
         {
             this->head = NULL;
+            this->cartSize = 0;
+            this->total =0;
         }
 
-        void addCake(T prod)
+        void addCake(T prod, double price)
         {
             CNode<T>* cake = new CNode<T>;
             cake->data = prod;
+            cake->price = price;
             if(head == NULL)
             {
                 head = cake;
@@ -46,7 +57,7 @@ class LLCart
             }
             temp->next = cake;
             cartSize++;
-            cout << "Cake Added" << endl;
+            //cout << "Cake Added" << endl;
         }
 
         template<typename id>
@@ -96,7 +107,7 @@ class LLCart
             cout << "\n";
             while (temp != NULL)
             {
-                cout<< temp->data << " -> ";
+                cout<< temp->price << " -> ";
                 temp = temp->next;
             }
             
@@ -124,23 +135,42 @@ class LLCart
         }
 };
 
-
+// This is used to split the data from the txt file(cake data)
+vector<string> split(string str, char delimiter) 
+{ 
+  vector<string> internal; 
+  stringstream ss(str); 
+  string tok; 
+ 
+  while(getline(ss, tok, delimiter)) 
+  { 
+    internal.push_back(tok); 
+  } 
+ 
+  return internal; 
+} 
 
 int main()
 {
-    LLCart<string> list;
-    list.addCake("Vanilla");
-    // list.addCake(56);
-    // list.addCake(36);
-    // list.addCake(12);
-    // list.addCake(569);
-    // list.addCake(536);
-    // list.addCake(53346);
-    // list.addCake(5236);
-    // list.addCake(5346);
-    // list.addCake(54256);
-    list.DisplayCart();
-    list.removeCake("Vanilla");
-    list.DisplayCart();
-    // list.DisplayCart();
+    CakeStore store = CakeStore();
+    LLCart<string> CartList;
+    LLCart<string> PriceList;
+
+    fstream cakeData;
+    cakeData.open("cakeData.txt", ios::in);
+    if(cakeData.is_open())
+    {
+        string tp;
+        
+        while(getline(cakeData,tp))
+        {
+            vector<string> sep = split(tp,' ');
+            double price = ::atof(sep[1].c_str());
+            PriceList.addCake(sep[0], price);
+        }
+    }
+    cakeData.close();
+    system("CLS");
+    PriceList.DisplayCart();
+
 }
