@@ -147,6 +147,19 @@ class LLCart
                 counter++;
             }
         }
+
+        double getCakePrice(string cakeName)
+        {
+            CNode<T>* temp = head;
+            while(temp != NULL)
+            {
+                if(temp->data == cakeName)
+                {
+                    return temp->price;
+                }
+                temp = temp->next;
+            }
+        }
 };
 
 // This is used to split the data from the txt file(cake data)
@@ -204,8 +217,15 @@ int main()
 
     CakeStore store = CakeStore(name,dob,zip);
     PriceList.DisplayProducts();
+
+    string cakeName;
+
     while(!store.GetOrderStatus())
     {
-         
+        cout << "Enter Cake you want to purchase (eq :Vanilla): ";
+        cin >> cakeName;
+        CartList.addCake(cakeName,PriceList.getCakePrice(cakeName));
+        CartList.DisplayCart();
+        break;
     }
 }
