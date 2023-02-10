@@ -170,7 +170,7 @@ int main()
         }
     }
     cakeData.close();
-    system("CLS");
+    system("clear");
     PriceList.DisplayCart();
 
 }
