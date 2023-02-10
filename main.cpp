@@ -175,8 +175,8 @@ int main()
     cakeData.close();
 
 
-    system("cls");                                      //for windows
-    //system("clear");                                  //for linux
+    //system("cls");                                      //for windows
+    system("clear");                                  //for linux
 
 
     cout << "\t\tWelcome to the Cake Shop" << endl;
