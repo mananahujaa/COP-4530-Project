@@ -23,6 +23,11 @@ CakeStore::CakeStore(string name, string DOB, int zip)
     this->total = 0;
 }
 
+string CakeStore::GetName()
+{
+    return this->name;
+}
+
 void CakeStore::print()
 {
     cout << this->name;

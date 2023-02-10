@@ -15,6 +15,7 @@ private:
 public:
     CakeStore();
     CakeStore(string name, string DOB, int zip);
+    string GetName();
     void print();
     bool GetOrderStatus();
     void OrderCompleted();

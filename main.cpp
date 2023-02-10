@@ -47,7 +47,7 @@ class LLCart
             {
                 head = cake;
                 cartSize++;
-                cout << "Cake Added to cart!!!" << endl;
+                cout << "\n\t\tCake Added to cart!!!" << endl;
                 return;
             }
 
@@ -74,6 +74,7 @@ class LLCart
             if(size == 1 || head->data == uid)
             {
                 head = head->next;
+                cartSize--;
                 return;
             }
             int counter = 0;
@@ -84,12 +85,13 @@ class LLCart
                 if(uid == temp->next->data && counter != size)
                 {
                     temp->next = temp->next->next;
-                    cout << "Cake Removed" << endl;
+                    cout << "\t\tCake Removed" << endl;
                     cartSize--;
                     return;
                 }else if(uid == temp->data)
                 {
                     removeAtEnd();
+                    cartSize--;
                     return;
                 }
                 temp = temp->next;
@@ -101,15 +103,19 @@ class LLCart
         void DisplayCart()
         {
             CNode<T>* temp = head;
+            int counter = 1;
             if(temp == NULL)
             {
                 cout << "Cart is Empty" << endl;
+                return;
             }
             cout << "\n";
+            cout << " Cart: " << endl;
             while (temp != NULL)
             {
-                cout<< temp->price << " -> ";
+                cout << " " << counter << ". " << temp->data << " Cake \t- " << temp->price << "$" << endl;
                 temp = temp->next;
+                counter++;
             }
             
         }
@@ -139,10 +145,10 @@ class LLCart
         {
             CNode<T>* temp = head;
             int counter = 1;
-            cout << endl << "\t\tHere is our product list" << endl << endl;
+            cout << endl << "\nHere is our product list" << endl << endl;
             while(temp != NULL)
             {
-                cout << "\t\t" << counter << ". " << temp->data << " Cake \t- " << temp->price << "$" << endl;
+                cout << " " << counter << ". " << temp->data << " Cake \t- " << temp->price << "$" << endl;
                 temp = temp->next;
                 counter++;
             }
@@ -159,22 +165,24 @@ class LLCart
                 }
                 temp = temp->next;
             }
+
+            return 0;
         }
 };
 
 // This is used to split the data from the txt file(cake data)
 vector<string> split(string str, char delimiter) 
 { 
-  vector<string> internal; 
+  vector<string> strr; 
   stringstream ss(str); 
   string data; 
  
   while(getline(ss, data, delimiter)) 
   { 
-    internal.push_back(data); 
+    strr.push_back(data); 
   } 
  
-  return internal; 
+  return strr; 
 } 
 
 int main()
@@ -216,16 +224,50 @@ int main()
     cin >> zip;
 
     CakeStore store = CakeStore(name,dob,zip);
-    PriceList.DisplayProducts();
 
-    string cakeName;
 
+    string cakeName,dummy;
+    double cakePrice = 0;
+    int ctr = 0;
     while(!store.GetOrderStatus())
-    {
-        cout << "Enter Cake you want to purchase (eq :Vanilla): ";
-        cin >> cakeName;
-        CartList.addCake(cakeName,PriceList.getCakePrice(cakeName));
-        CartList.DisplayCart();
-        break;
+    {   
+        system("clear");
+        cout << "Welcome, " << store.GetName() << endl << "Cart: " << CartList.GetCartSize() << endl << endl;
+
+        cout << "Menu\n 1. Add Cake\n 2. Remove Cake\n 3. Display Cart\n 4. Order " << endl;
+        cout << "Selection: ";
+        cin >> ctr;
+        switch (ctr)
+        {
+            case 1:
+                PriceList.DisplayProducts();
+                cout << "\n Enter Cake you want to purchase (eq :Vanilla): ";
+                cin >> cakeName;
+                cakePrice = PriceList.getCakePrice(cakeName);
+                if(cakePrice <= 0)
+                {
+                    cout << "  Cake does not exist!!!\n   Please Try again";
+                    continue;
+                }
+                CartList.addCake(cakeName,PriceList.getCakePrice(cakeName));
+                break;
+            case 2:
+                CartList.DisplayCart();
+                cout << "Enter name of cake to remove: ";
+                cin >> cakeName;
+                CartList.removeCake(cakeName);
+                break;
+            case 3:
+                CartList.DisplayCart();
+                cout << "Enter C to continue!!!" << endl;
+                cin >> dummy;
+                break;
+            default:
+                break;
+        }
+        
+        //PriceList.DisplayProducts();
+        
+        //CartList.DisplayCart();
     }
 }
