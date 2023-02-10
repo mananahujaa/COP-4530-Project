@@ -152,10 +152,13 @@ vector<string> split(string str, char delimiter)
 
 int main()
 {
-    CakeStore store = CakeStore();
+    string name, dob;
+    int zip;
+    //CakeStore store = CakeStore("Arwin","01/22/200",33613);
     LLCart<string> CartList;
     LLCart<string> PriceList;
 
+    // Reads Data from the txt file and splits data into PriceList 
     fstream cakeData;
     cakeData.open("cakeData.txt", ios::in);
     if(cakeData.is_open())
@@ -170,7 +173,21 @@ int main()
         }
     }
     cakeData.close();
-    system("clear");
-    PriceList.DisplayCart();
 
+
+    system("cls");                                      //for windows
+    //system("clear");                                  //for linux
+
+
+    cout << "\t\tWelcome to the Cake Shop" << endl;
+    cout << "\t\tEnter the details below to start the order!!!" << endl << endl;
+    cout << "\t\tName:";
+    cin >> name;
+    cout << "\n\t\tDate Of Birth:";
+    cin >> dob;
+    cout << "\n\t\tZipcode:";
+    cin >> zip;
+
+    CakeStore store = CakeStore(name,dob,zip);
+    store.print();
 }

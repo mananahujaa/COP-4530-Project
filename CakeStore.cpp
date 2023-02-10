@@ -1,3 +1,4 @@
+#include "iostream"
 #include "string"
 #include "CakeStore.h"
 
@@ -20,4 +21,9 @@ CakeStore::CakeStore(string name, string DOB, int zip)
     this->zipcode = zip;
     this->orderStatus = false;
     this->total = 0;
+}
+
+void CakeStore::print()
+{
+    cout << this->name;
 }

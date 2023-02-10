@@ -15,6 +15,8 @@ private:
 public:
     CakeStore();
     CakeStore(string name, string DOB, int zip);
+    void print();
+
     // ~CakeStore();
 };
 
