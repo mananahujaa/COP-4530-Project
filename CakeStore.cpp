@@ -33,6 +33,16 @@ void CakeStore::print()
     cout << this->name;
 }
 
+bool CakeStore::userAuth(string dob, int zipcode)
+{
+    if((this->dateOfBirth == dob) && (this->zipcode == zipcode))
+    {
+        return true;
+    }
+
+    return false;
+}
+
 bool CakeStore::GetOrderStatus()
 {
     return this->orderStatus;

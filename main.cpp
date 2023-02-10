@@ -168,6 +168,19 @@ class LLCart
 
             return 0;
         }
+
+        double SetCartTotal()
+        {
+            double totalCost = 0;
+            CNode<T>* temp = head;
+            while(temp != NULL)
+            {
+                totalCost += temp->price;
+                temp = temp->next;
+            }
+            this->total = totalCost;
+            return this->total;
+        }
 };
 
 // This is used to split the data from the txt file(cake data)
@@ -184,6 +197,13 @@ vector<string> split(string str, char delimiter)
  
   return strr; 
 } 
+
+void pause()
+{   
+    string dummy;
+    cout << "\n\nEnter C to continue!!!";
+    cin >> dummy;
+}
 
 int main()
 {
@@ -226,16 +246,17 @@ int main()
     CakeStore store = CakeStore(name,dob,zip);
 
 
-    string cakeName,dummy;
-    double cakePrice = 0;
-    int ctr = 0;
+    string cakeName,dummy,dobauth;
+    double cakePrice = 0,cartTotal =0;
+    int ctr = 0,zipauth;
+    char p;
     while(!store.GetOrderStatus())
     {   
         system("clear");
         cout << "Welcome, " << store.GetName() << endl << "Cart: " << CartList.GetCartSize() << endl << endl;
 
-        cout << "Menu\n 1. Add Cake\n 2. Remove Cake\n 3. Display Cart\n 4. Order " << endl;
-        cout << "Selection: ";
+        cout << "Menu\n 1. Add Cake\n 2. Remove Cake\n 3. Display Cart\n 4. Send Order \n 5. Cancel Order \n " << endl;
+        cout << "\nSelection: ";
         cin >> ctr;
         switch (ctr)
         {
@@ -246,28 +267,77 @@ int main()
                 cakePrice = PriceList.getCakePrice(cakeName);
                 if(cakePrice <= 0)
                 {
-                    cout << "  Cake does not exist!!!\n   Please Try again";
-                    continue;
+                    cout << " " << cakeName <<" does not exist!!!\n Please Try again";
+                    pause();
+                    break;
                 }
                 CartList.addCake(cakeName,PriceList.getCakePrice(cakeName));
+                pause();
                 break;
             case 2:
                 CartList.DisplayCart();
+                if(CartList.GetCartSize() == 0)
+                {
+                    pause();
+                    break;
+                }
                 cout << "Enter name of cake to remove: ";
                 cin >> cakeName;
                 CartList.removeCake(cakeName);
+                pause();
                 break;
             case 3:
                 CartList.DisplayCart();
-                cout << "Enter C to continue!!!" << endl;
-                cin >> dummy;
+                pause();
+                break;
+            case 4:
+                if(CartList.GetCartSize() == 0)
+                {
+                    cout<<"\nEmpty Cart, Add Cakes to the Cart";
+                    pause();
+                    break;
+                }
+                cout << "Inorder to complete the order please enter the following information used while creating account.\n";
+                cout << "Date Of Birth: ";
+                cin >> dobauth;
+                cout << "Zipcode: ";
+                cin >> zipauth;
+                if(store.userAuth(dobauth,zipauth))
+                {
+                    cout << "User Authenticated\n Calculating Bill Order..........";
+                    cartTotal = CartList.SetCartTotal();
+                    CartList.DisplayCart();
+                    cout << " Total: " << cartTotal << "$";
+                    cout <<"\n Would you like to proceed?(y/n): ";
+                    cin >> p;
+                    if(p == 'y' || p == 'Y')
+                    {
+                        system("clear");
+                        cout << "\n\n Order Sent........";
+                        store.OrderCompleted();
+                    }
+                    else
+                    {
+                        cout << "\n\n Exiting............";
+                        break;
+                    }
+                }
+                else
+                {
+                    cout << "Invalid Credentials, try again!!!";
+                    pause();
+                    break;
+                }
+                pause();
+                cout << "\n\n Enjoy Your Cakes ;)\n\n\n";
+                break;
+            case 5:
+                cout << "\n\n We hate to see you go :(\n But if you ever need cakes you know where to find us !!!!\n GoodBye for now !!!";
+                store.OrderCompleted();
+                pause();
                 break;
             default:
                 break;
         }
-        
-        //PriceList.DisplayProducts();
-        
-        //CartList.DisplayCart();
     }
 }

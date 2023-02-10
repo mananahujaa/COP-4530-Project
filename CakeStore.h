@@ -17,6 +17,7 @@ public:
     CakeStore(string name, string DOB, int zip);
     string GetName();
     void print();
+    bool userAuth(string dateOfBirth, int zip);
     bool GetOrderStatus();
     void OrderCompleted();
 
