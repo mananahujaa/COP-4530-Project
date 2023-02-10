@@ -27,3 +27,13 @@ void CakeStore::print()
 {
     cout << this->name;
 }
+
+bool CakeStore::GetOrderStatus()
+{
+    return this->orderStatus;
+}
+
+void CakeStore::OrderCompleted()
+{
+    this->orderStatus = true;
+}

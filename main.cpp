@@ -139,10 +139,10 @@ class LLCart
         {
             CNode<T>* temp = head;
             int counter = 1;
-            cout << endl << "\tHere is our product list" << endl << endl;
+            cout << endl << "\t\tHere is our product list" << endl << endl;
             while(temp != NULL)
             {
-                cout << "\t" << counter << ". " << temp->data << " Cake \t- " << temp->price << "$" << endl;
+                cout << "\t\t" << counter << ". " << temp->data << " Cake \t- " << temp->price << "$" << endl;
                 temp = temp->next;
                 counter++;
             }
@@ -154,11 +154,11 @@ vector<string> split(string str, char delimiter)
 { 
   vector<string> internal; 
   stringstream ss(str); 
-  string tok; 
+  string data; 
  
-  while(getline(ss, tok, delimiter)) 
+  while(getline(ss, data, delimiter)) 
   { 
-    internal.push_back(tok); 
+    internal.push_back(data); 
   } 
  
   return internal; 
@@ -168,11 +168,10 @@ int main()
 {
     string name, dob;
     int zip;
-    //CakeStore store = CakeStore("Arwin","01/22/200",33613);
     LLCart<string> CartList;
     LLCart<string> PriceList;
 
-    // Reads Data from the txt file and splits data into PriceList 
+    // Reads Data from the txt file and splits data into PriceList object
     fstream cakeData;
     cakeData.open("cakeData.txt", ios::in);
     if(cakeData.is_open())
@@ -190,7 +189,7 @@ int main()
 
 
     //system("cls");                                      //for windows
-    system("clear");                                  //for linux
+    system("clear");                                      //for linux
 
     system("clear");
 
@@ -205,4 +204,8 @@ int main()
 
     CakeStore store = CakeStore(name,dob,zip);
     PriceList.DisplayProducts();
+    while(!store.GetOrderStatus())
+    {
+         
+    }
 }
