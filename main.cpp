@@ -252,6 +252,8 @@ int main()
     char p;
     while(!store.GetOrderStatus())
     {   
+        cout <<"\n\n";
+        system("clear");
         system("clear");
         cout << "Welcome, " << store.GetName() << endl << "Cart: " << CartList.GetCartSize() << endl << endl;
 
@@ -319,6 +321,7 @@ int main()
                     else
                     {
                         cout << "\n\n Exiting............";
+                        pause();
                         break;
                     }
                 }
