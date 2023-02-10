@@ -189,8 +189,8 @@ int main()
     cakeData.close();
 
 
-    system("cls");                                      //for windows
-    //system("clear");                                  //for linux
+    //system("cls");                                      //for windows
+    system("clear");                                  //for linux
 
     system("clear");
 
