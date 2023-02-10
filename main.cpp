@@ -5,6 +5,7 @@
 #include "bits/stdc++.h"
 #include "stdlib.h"
 
+
 using namespace std;
 
 template<typename T>
@@ -133,6 +134,19 @@ class LLCart
         {
             return cartSize;
         }
+
+        void DisplayProducts()
+        {
+            CNode<T>* temp = head;
+            int counter = 1;
+            cout << endl << "\tHere is our product list" << endl << endl;
+            while(temp != NULL)
+            {
+                cout << "\t" << counter << ". " << temp->data << " Cake \t- " << temp->price << "$" << endl;
+                temp = temp->next;
+                counter++;
+            }
+        }
 };
 
 // This is used to split the data from the txt file(cake data)
@@ -175,11 +189,12 @@ int main()
     cakeData.close();
 
 
-    //system("cls");                                      //for windows
-    system("clear");                                  //for linux
+    system("cls");                                      //for windows
+    //system("clear");                                  //for linux
 
+    system("clear");
 
-    cout << "\t\tWelcome to the Cake Shop" << endl;
+    cout << "\t\t\tWelcome to the Cake Shop" << endl;
     cout << "\t\tEnter the details below to start the order!!!" << endl << endl;
     cout << "\t\tName:";
     cin >> name;
@@ -189,5 +204,5 @@ int main()
     cin >> zip;
 
     CakeStore store = CakeStore(name,dob,zip);
-    store.print();
+    PriceList.DisplayProducts();
 }
