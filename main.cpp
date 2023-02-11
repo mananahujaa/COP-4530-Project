@@ -273,7 +273,8 @@ int main()
         cout << "Welcome, " << store.GetName() << endl << "Cart: " << CartList.GetCartSize() << endl << endl;
 
         cout << "Menu\n 1. Add Cake\n 2. Remove Cake\n 3. Display Cart\n 4. Send Order \n 5. Cancel Order \n " << endl;
-        cout << "\nSelection: ";
+        
+        cout << "\nSelection(1,2,3,4,5): ";
         cin >> ctr;
         switch (ctr)
         {
@@ -315,13 +316,13 @@ int main()
                     break;
                 }
                 cout << "Inorder to complete the order please enter the following information used while creating account.\n";
-                cout << "Date Of Birth: ";
+                cout << "Date Of Birth(DD/MM/YYYY): ";
                 cin >> dobauth;
                 cout << "Zipcode: ";
                 cin >> zipauth;
                 if(store.userAuth(dobauth,zipauth))
                 {
-                    cout << "User Authenticated\n Calculating Bill Order..........";
+                    cout << "\n\nUser Authenticated\n\n Calculating Bill Order..........";
                     cartTotal = CartList.SetCartTotal();
                     CartList.DisplayCart();
                     cout << " Total: " << cartTotal << "$";
