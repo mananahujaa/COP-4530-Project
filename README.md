@@ -4,7 +4,7 @@ The code has a list of items at a cakestore and prints the orders as well as get
 To build the project:
 
 ```shell
-$ g++ CakeStore.h CakeStore.cpp main.exe
+$ g++ CakeStore.h CakeStore.cpp main.cpp
 ```
 
 To run the project
