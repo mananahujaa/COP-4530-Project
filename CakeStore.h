@@ -13,15 +13,12 @@ private:
     
 
 public:
-    CakeStore();
-    CakeStore(string name, string DOB, int zip);
-    string GetName();
-    void print();
-    bool userAuth(string dateOfBirth, int zip);
-    bool GetOrderStatus();
-    void OrderCompleted();
-
-    // ~CakeStore();
+    CakeStore();                                    // Constructor
+    CakeStore(string name, string DOB, int zip);    // Constructor
+    string GetName();                               // return name of the user
+    bool userAuth(string dateOfBirth, int zip);     // Authenticates the user
+    bool GetOrderStatus();                          // returns the status of the order (false -> in-progress, true -> Completed)
+    void OrderCompleted();                          // Sets order status as true;
 };
 
 #endif

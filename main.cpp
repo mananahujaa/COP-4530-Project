@@ -1,13 +1,15 @@
 
+// PP0 but Manan Ahuja and Arwin Swapna-
+/*the code has a list of items at a cakestore and prints the orders during the day as well as gets order status and answers if the order has been completed, using LinkedLists , and a vector array*/
+
 #include "iostream"
 #include "fstream"
 #include "CakeStore.h"
 #include "bits/stdc++.h"
-#include "stdlib.h"
-
 
 using namespace std;
 
+// Cake Node to store Data, Price and pointer to next Node
 template<typename T>
 class CNode
 {
@@ -23,22 +25,34 @@ class CNode
         }
 };
 
+// LinkedList Class - using to generate the Price List and Cart List
 template<typename T> 
 class LLCart
 {
     private:
         CNode<T>* head;
-        int cartSize;
-        float total;
+        int cartSize;                                               //Stores number of items in cart
+        float total;                                                //Total Cost of all the items in the LinkedList
     public:
-        LLCart()
+        LLCart()                                                    //Constructor
         {
             this->head = NULL;
             this->cartSize = 0;
             this->total =0;
         }
 
-        void addCake(T prod, double price)
+        ~LLCart()                                                   //Destructor
+        {
+            CNode<T>* current = head;            
+            while( current != NULL )          
+            {
+                CNode<T>* temp = current;          
+                current = current->next;  
+                delete temp;                  
+            }
+        }
+
+        void addCake(T prod, double price)                          //Fn to add cake into Cart and Price list
         {
             CNode<T>* cake = new CNode<T>;
             cake->data = prod;
@@ -62,7 +76,7 @@ class LLCart
         }
 
         template<typename id>
-        void removeCake(id uid)
+        void removeCake(id uid)                                     //Fn to remove cake from cartList
         {
             int size = GetCartSize();
             if(head == NULL || size == 0)
@@ -100,7 +114,7 @@ class LLCart
             
         }
 
-        void DisplayCart()
+        void DisplayCart()                                          //Shows cart contents
         {
             CNode<T>* temp = head;
             int counter = 1;
@@ -120,7 +134,7 @@ class LLCart
             
         }
 
-        void removeAtEnd()
+        void removeAtEnd()                                      //Removed the node at the end
         {
             CNode<T>* temp = head;
             while (temp != NULL)
@@ -136,12 +150,12 @@ class LLCart
             
         }
 
-        int GetCartSize()
+        int GetCartSize()                                       //Returns cartSize
         {
             return cartSize;
         }
 
-        void DisplayProducts()
+        void DisplayProducts()                                  //Prints Product List
         {
             CNode<T>* temp = head;
             int counter = 1;
@@ -154,7 +168,7 @@ class LLCart
             }
         }
 
-        double getCakePrice(string cakeName)
+        double getCakePrice(string cakeName)                    // Searches for the cake name in the product list and returns price
         {
             CNode<T>* temp = head;
             while(temp != NULL)
@@ -169,7 +183,7 @@ class LLCart
             return 0;
         }
 
-        double SetCartTotal()
+        double SetCartTotal()                                   // Sums the total price of items in cart
         {
             double totalCost = 0;
             CNode<T>* temp = head;
@@ -198,10 +212,11 @@ vector<string> split(string str, char delimiter)
   return strr; 
 } 
 
+// Used to stop the console to let users see the messages and output
 void pause()
 {   
     string dummy;
-    cout << "\n\nEnter C to continue!!!";
+    cout << "\n\nEnter any key and press Enter to continue:";
     cin >> dummy;
 }
 
@@ -238,7 +253,7 @@ int main()
     cout << "\t\tEnter the details below to start the order!!!" << endl << endl;
     cout << "\t\tName:";
     cin >> name;
-    cout << "\n\t\tDate Of Birth:";
+    cout << "\n\t\tDate Of Birth (MM/DD/YYYY):";
     cin >> dob;
     cout << "\n\t\tZipcode:";
     cin >> zip;
@@ -253,7 +268,7 @@ int main()
     while(!store.GetOrderStatus())
     {   
         cout <<"\n\n";
-        system("clear");
+        system("clear");                        //clears the console
         system("clear");
         cout << "Welcome, " << store.GetName() << endl << "Cart: " << CartList.GetCartSize() << endl << endl;
 
